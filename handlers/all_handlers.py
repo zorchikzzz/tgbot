@@ -27,13 +27,8 @@ async def addexpence(messege : types.Message):
         await messege.answer('НЕКОРЕКТНЫЙ ВВОД')
 
 
-
-#async def returnbalance(message: types.Message): этот функционал переезжает в отдельную категорию
-    #await message.answer(dbsql.get_balance())
-
-
 async def returnkategorys(message: types.Message):
-    await message.answer(dbsql.kategorysinbase("РАСХОД"), reply_markup=journalKb.kategorysIncome)
+    await message.answer(dbsql.kategorysinbase('РАСХОД'), reply_markup=journalKb.kategorysIncome)
 
 
 async def returnDohodkategorys(callback: types.CallbackQuery):

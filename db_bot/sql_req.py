@@ -8,14 +8,14 @@ rashodmonth = 'SELECT SUM(sum) FROM log WHERE type = "РАСХОД" AND date >' 
 dohodmonth = 'SELECT SUM(sum) FROM log WHERE type = "ДОХОД" AND date >' \
              'DATETIME("now","start of month")'
 
-rashodday = 'SELECT SUM(sum) FROM log WHERE type = "РАСХОД" AND date >=' \
+rashodday = 'SELECT SUM(sum) FROM log WHERE type = "РАСХОД" AND date >' \
               ' DATETIME("now", "start of day")'
 
-dohodday =  'SELECT SUM(sum) FROM log WHERE type = "ДОХОД" AND date >=' \
+dohodday =  'SELECT SUM(sum) FROM log WHERE type = "ДОХОД" AND date >' \
              'DATETIME("now", "start of day")'
 
 stat_in_month = ('SELECT kategory, sum(sum), date, coment FROM log WHERE type =', 'AND strftime("%m",date) =',
-             'AND strftime("%Y",date)=', 'GROUP BY kategory')
+             'AND strftime("%Y",date)=', 'GROUP BY kategory ORDER BY sum(sum) DESC')
 
 getlast10 = '''SELECT type, sum , kategory, coment, date, id FROM log ORDER BY date DESC LIMIT 10'''
 

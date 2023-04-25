@@ -21,8 +21,19 @@ def get_balance():
 
 
 def kategorysinbase(type):
-    cursor.execute(f'{sql_req.kategorys} "{type}"')
-    kategorys = '\n'.join(sorted([i[0] for i in cursor.fetchall()]))
-    return kategorys
+    cursor.execute(f'{sql_req.kategorys} "{type}" ORDER BY sum DESC')
+    kategorys = '\n'.join([i[0] for i in cursor.fetchall()])#.split()
+
+    return f'<b>{kategorys}</b>'
+    #x = 0
+    #k=''
+    #z=''
+    #for i in kategorys:
+        #k = k+'\n' +('  '*x) + i
+        #if z == i[0]:
+            #x+=1
+        #z = i[0]
+
+    #return  f'<b>{k}</b>'
 
 

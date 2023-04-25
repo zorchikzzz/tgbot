@@ -37,5 +37,5 @@ def reply_journalkb(type, monthid, year, x=1):
 
     if x == 1: # x=0 только при переходе в меню доходов ( там не нужно добавлять эти кнопки)
         journalkb.add(InlineKeyboardButton("ПОСМОТРЕТЬ ДОХОДЫ", callback_data=f'viev_{monthid}{year}'))\
-            .add(chooseMonth).insert(showyearstatistic)
+            .add(chooseMonth)#.insert(showyearstatistic) в разработке
     return journalkb

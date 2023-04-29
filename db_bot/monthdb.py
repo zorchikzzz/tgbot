@@ -32,7 +32,7 @@ def month_in_type(type, monthid, year):
     kategorys = cursor.fetchall()
     return kategorys
 
-'''СПИСОК РАСХОДОВ В КОНКРЕТНОЙ КАТЕГОРИИИ ЗА ВЫБРАННУЮ ДАТУ'''
+'''СПИСОК РАСХОДОВ В КОНКРЕТНОЙ КАТЕГОРИИИ ЗА ВЫБРАНЫЙ МЕСЯЦ'''
 def kategory_expances(kategory, monthid, year):
     cursor.execute(f'{sql_req.stat_in_kategory_in_month[0]} "{kategory}" {sql_req.stat_in_kategory_in_month[1]} "{monthid}"'
                    f'{sql_req.stat_in_kategory_in_month[2]} "{year}" {sql_req.stat_in_kategory_in_month[3]}')

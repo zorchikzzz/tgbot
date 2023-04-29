@@ -6,7 +6,7 @@ from handlers import year_handlers
 
 
 
-'''ХЭНДЛЕР РЕАГИРУЮЩИЙ НА КНОПКУ ЖУРНАЛ ИЗ ГЛАВНОГО МЕНЮ, В ЕЁМ УЗНАЁМ ТЕКУЩЕЕ ВРЕМЯ И ПЕРЕДАЁМ ЕГО В ФУНКЦИЮ КОТОРАЯ 
+'''ХЭНДЛЕР РЕАГИРУЮЩИЙ НА КНОПКУ ЖУРНАЛ ИЗ ГЛАВНОГО МЕНЮ, В НЁМ УЗНАЁМ ТЕКУЩЕЕ ВРЕМЯ И ПЕРЕДАЁМ ЕГО В ФУНКЦИЮ КОТОРАЯ 
 СОБЕРЁТ НАМ ИНЛАЙН КЛАВИАТУРУ'''
 async def month_info(message: types.message):
     import time
@@ -32,10 +32,20 @@ async def inlinemonth_info(callback: types.CallbackQuery):
 """РЕАГИРУЕТ НА ИНЛАЙН КНОПКУ ПОСМОТРЕТЬ ДОХОДЫ """
 async def viev_income(callback: types.CallbackQuery):
     year = year_handlers.year
-    sum = monthdb.summaoftype("ДОХОД", callback.data[5:7], year)
-    await callback.message.answer(f'<b>ДОХОДЫ ЗА ВЫБРАННЫЙ МЕСЯЦ {sum}</b>',
-                                  reply_markup=reply_journalkb('ДОХОД', callback.data[5:7], callback.data[7:], 0))
-    await callback.answer('ДОХОДЫ')
+    if len(callback.data) == 11:
+        period = 'МЕСЯЦ'
+        sum = monthdb.summaoftype("ДОХОД", callback.data[5:7], year)
+        month = callback.data[5:7]
+    else:
+        period = f'{year} ГОД'
+        sum = ' '
+        month = 0
+
+    await callback.message.answer(f'<b>ДОХОДЫ ЗА {period} {sum}</b>',
+                                  reply_markup=reply_journalkb('ДОХОД', month, year, 0))
+
+    await callback.answer(callback.data)
+    print(callback.data)
 
 '''РАСКРЫВАЕТ ЖУРНАЛ РАСХОДОВ ПО ОТДЕЛЬНОЙ КАТЕГОРИИ (ЭТО КОНЕЧНЫЙ РЕЗУЛЬТАТ ИЗ КОТОРОГО ДАЛЬШЕ
 НЕВОЗМОЖНО ПРОВАЛИТЬСЯ)'''
@@ -45,7 +55,7 @@ async def more_info_kategory(callback: types.CallbackQuery):
 
 
 def register_month(dp: Dispatcher):
-    dp.register_callback_query_handler(more_info_kategory, Text(startswith='ПОДРОБНЕЕ_'))
+    dp.register_callback_query_handler(more_info_kategory, Text(startswith='ПОДРОБНЕЕМ'))
     dp.register_callback_query_handler(viev_income, Text(startswith='viev_'))
     dp.register_callback_query_handler(inlinemonth_info, Text(startswith='month_'))
     dp.register_message_handler(month_info, text=['ЖУРНАЛ'])

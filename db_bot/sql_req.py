@@ -17,12 +17,16 @@ dohodday =  'SELECT SUM(sum) FROM log WHERE type = "ДОХОД" AND date >' \
 stat_in_month = ('SELECT kategory, sum(sum), date, coment FROM log WHERE type =', 'AND strftime("%m",date) =',
              'AND strftime("%Y",date)=', 'GROUP BY kategory ORDER BY sum(sum) DESC')
 
+stat_in_year = ('SELECT kategory, sum(sum), date, coment FROM log WHERE type =',
+             'AND strftime("%Y",date)=', 'GROUP BY kategory ORDER BY sum(sum) DESC')
+
 getlast10 = '''SELECT type, sum , kategory, coment, date, id FROM log ORDER BY date DESC LIMIT 10'''
 
 kategorys = ('SELECT DISTINCT kategory FROM log WHERE type =')
 
 stat_in_kategory_in_month = ('SELECT sum, coment, date FROM log WHERE kategory =', 'AND strftime("%m",date) =',
              'AND strftime("%Y",date)=', 'ORDER BY date')
+
 '''узнать колличество месяцев в выбранном году или колличество лет всего'''
 yearsselect = 'SELECT DISTINCT strftime("%Y",date) FROM log'
 monthselect = 'SELECT DISTINCT strftime("%m",date) FROM log WHERE strftime("%Y",date) ='

@@ -26,11 +26,12 @@ def replychooseMonthkb(year):
 """ИНЛАЙН КЛАВИАТУРА С КАТЕГОРИЯМИ """
 
 
-def reply_journalkb(type, monthid=0, year=2023, x=1):
+def reply_journalkb(type, monthid=00, year=2023, x=1):
     journalkb = InlineKeyboardMarkup(row_width=2)
     if monthid:
         period = monthdb.month_in_type(type, monthid, year)
         callback = 'ПОДРОБНЕЕМ'
+
 
     else:
         period = yeardb.year_in_type(type, year)
@@ -38,8 +39,18 @@ def reply_journalkb(type, monthid=0, year=2023, x=1):
 
     for i in period:
         journalkb.insert(InlineKeyboardButton(f'{i[0]} {i[1]}', callback_data=f'{callback}{monthid}{year}{i[0]}'))
+    journalkb.add(chooseMonth)
 
     if x == 1:  # x=0 только при переходе в меню доходов ( там не нужно добавлять эти кнопки)
-        journalkb.add(InlineKeyboardButton("ПОСМОТРЕТЬ ДОХОДЫ", callback_data=f'viev_{monthid}{year}')) \
-            .add(chooseMonth).insert(showyearstatistic)
+        journalkb.add(InlineKeyboardButton("ПОСМОТРЕТЬ ДОХОДЫ", callback_data=f'viev_{monthid}{year}'))
+
     return journalkb
+
+
+
+'''ИНЛАЙН КЛАВИАТУРА С ГОДАМИ'''
+def replyYearKb():
+    chooseYearKb = InlineKeyboardMarkup(row_width=4)
+    for i in yeardb.years:
+        chooseYearKb.insert(InlineKeyboardButton(f'{i}', callback_data= f'year_{i}'))
+    return chooseYearKb

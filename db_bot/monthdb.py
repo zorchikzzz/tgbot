@@ -33,11 +33,7 @@ def month_in_type(type, monthid, year):
     return kategorys
 
 '''СПИСОК РАСХОДОВ В КОНКРЕТНОЙ КАТЕГОРИИИ ЗА ВЫБРАНЫЙ МЕСЯЦ'''
-def kategory_expances(kategory, monthid, year):
-    cursor.execute(f'{sql_req.stat_in_kategory_in_month[0]} "{kategory}" {sql_req.stat_in_kategory_in_month[1]} "{monthid}"'
-                   f'{sql_req.stat_in_kategory_in_month[2]} "{year}" {sql_req.stat_in_kategory_in_month[3]}')
-    operations = '\n\n'.join([f'{i[0]} {str(i[1])} {i[2][:-3]}' for i in cursor.fetchall()])
-    return operations
+
 
 def summaoftype(type,monthid,year):
     cursor.execute(f'SELECT SUM(sum) FROM log WHERE type = "{type}" AND strftime("%m",date) = "{monthid}"'

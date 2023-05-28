@@ -37,20 +37,21 @@ async def returnDohodkategorys(callback: types.CallbackQuery):
 
 
 async def switchoffcomputer(message: types.Message):
-    #os.system("shutdown /s /t 1") windows edition
-    os.system('echo pasword | sudo -S shutdown -P +1' )
+    # os.system("shutdown /s /t 1") #windows edition
+    os.system('echo pasword | sudo -S shutdown -P +1' ) #linux
+    await backupReq(message)
 
 
 
-async def dbinmessage(message: types.Message):
+async def backupReq(message: types.Message):
     await message.reply_document(open('expence_log.db', 'rb'))
 
 def register_all(dp: Dispatcher):
     dp.register_message_handler(start, commands=['start', 'help'])
     dp.register_message_handler(returnkategorys, text=['КАТЕГОРИИ'])
-    dp.register_message_handler(switchoffcomputer, text='ВЫКЛЮЧИТЬ КОМПЬЮТЕР')
+    dp.register_message_handler(switchoffcomputer, commands=('выкл', "ВЫКЛ", "Выкл"))
     dp.register_callback_query_handler(returnDohodkategorys, text='incomekats')
     dp.register_message_handler(downloaddbonpc, content_types=ContentTypes.DOCUMENT)
-    dp.register_message_handler(dbinmessage, commands='backup')
+    dp.register_message_handler(backupReq, commands='backup')
 
     dp.register_message_handler(addexpence)

@@ -24,9 +24,6 @@ getlast10 = '''SELECT type, sum , kategory, coment, date, id FROM log ORDER BY d
 
 kategorys = ('SELECT DISTINCT kategory FROM log WHERE type =')
 
-stat_in_kategory_in_month = ('SELECT sum, coment, date FROM log WHERE kategory =', 'AND strftime("%m",date) =',
-             'AND strftime("%Y",date)=', 'ORDER BY date')
-
 '''узнать колличество месяцев в выбранном году или колличество лет всего'''
 yearsselect = 'SELECT DISTINCT strftime("%Y",date) FROM log'
 monthselect = 'SELECT DISTINCT strftime("%m",date) FROM log WHERE strftime("%Y",date) ='
